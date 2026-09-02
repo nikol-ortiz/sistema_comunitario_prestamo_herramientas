@@ -1,5 +1,5 @@
 import os
-from modules import functions
+from modulos import eventos, functions, herramientas, permisos, prestamos, usuarios
 
 
 # Este es el menú principal del programa
@@ -11,29 +11,33 @@ def mostar_menu_principal():
     print("1. Gestion de herramientas")
     print("2. Gestion de usuarios")
     print("3. gestion de prestamos")
-    print("4.consulta y reporte de prestamos")
+    print("4. consulta y reporte de prestamos")
     print("5. registro de eventos")
     print("6. permisos a manejar")
     print("7. salir")
 
 
-
-while True:
-    functions.mostar_menu_principal()
+opcion = 0
+while opcion != 7:
+    mostar_menu_principal()
         
     opcion = int(input("Seleccione una opción: "))
 
     if opcion == 1:
-        functions.mostrar_menu_gestion_herramientas()
+        herramientas.mostrar_menu_gestion_herramientas()
     elif opcion == 2:
-        eliminar_herramienta()
+        usuarios.mostrar_menu_gestion_usuarios()
     elif opcion == 3:
-        modificar_herramienta()
+        print('Gestion de prestamos')
     elif opcion == 4:
-        consultar_herramienta()
+        print('Gestion de consulta y reporte de prestamos')
     elif opcion == 5:
-        listar_herramientas()
+        print('Gestion de registro de eventos')
     elif opcion == 6:
-        break
+        print('Gestion de permisos a manejar')
+    elif opcion == 7:
+        print("Gracias por utilizar el sistema.")
     else:
         print("Opción inválida, por favor intente de nuevo.")
+    
+
