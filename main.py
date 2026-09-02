@@ -17,9 +17,15 @@ def mostar_menu_principal():
     print("7. salir")
 
 
+<<<<<<< Updated upstream
 
 while True:
     functions.mostar_menu_principal()
+=======
+opcion = 0
+while opcion !=7:
+    mostar_menu_principal()
+>>>>>>> Stashed changes
         
     opcion = int(input("Seleccione una opción: "))
 
@@ -37,3 +43,11 @@ while True:
         break
     else:
         print("Opción inválida, por favor intente de nuevo.")
+<<<<<<< Updated upstream
+=======
+        
+
+
+    
+
+>>>>>>> Stashed changes
