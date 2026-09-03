@@ -1,0 +1,44 @@
+[
+    {
+        "id_prestamo": "777",
+        "usuario_id": "1236",
+        "herramienta_id": 30546,
+        "cantidad": 1,
+        "fecha_inicio": "2026-09-03",
+        "fecha_estimada_devolucion": "2025-10-01",
+        "estado": "aprobado",
+        "observaciones": "Ninguna",
+        "fecha_devolucion_real": "2026-09-3-15:30:00"
+    },
+    {
+        "id_prestamo": "b515439c",
+        "usuario_id": "1236",
+        "herramienta_id": 30546,
+        "cantidad": 2,
+        "fecha_inicio": "2026-09-30",
+        "fecha_estimada_devolucion": "2026-10-02",
+        "estado": "devuelto",
+        "observaciones": "NA",
+        "fecha_devolucion_real": "2026-09-03 15:51:29"
+    },
+    {
+        "id_prestamo": "cd129aab",
+        "usuario_id": "123",
+        "herramienta_id": 1234,
+        "cantidad": 10,
+        "fecha_inicio": "2026-09-03",
+        "fecha_estimada_devolucion": "2026-10-01",
+        "estado": "aprobado",
+        "observaciones": "Necesidad para la casa"
+    },
+    {
+        "id_prestamo": "b094793a",
+        "usuario_id": "123",
+        "herramienta_id": 30546,
+        "cantidad": 1,
+        "fecha_inicio": "2026-09-03",
+        "fecha_estimada_devolucion": "2026-09-05",
+        "estado": "rechazado",
+        "observaciones": "RECHAZADO: no me gusto | NA"
+    }
+]

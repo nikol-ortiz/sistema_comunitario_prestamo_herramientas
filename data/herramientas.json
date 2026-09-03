@@ -3,16 +3,24 @@
         "id": 30546,
         "nombre": "SIERRA",
         "categoria": "ELECTRICOS",
-        "cantidad_disponible": 4,
+        "cantidad_disponible": 7,
         "estado": 1,
         "valor_estimado": 150000.0
     },
     {
-        "id": 9999,
-        "nombre": "CLAVOS",
-        "categoria": "MECANICOS",
-        "cantidad_disponible": 500,
-        "estado": 3,
+        "id": 11234,
+        "nombre": "MARTILLO",
+        "categoria": "JARDINERIA",
+        "cantidad_disponible": 1,
+        "estado": 1,
         "valor_estimado": 20000.0
+    },
+    {
+        "id": 1234,
+        "nombre": "MARTILLO",
+        "categoria": "MECANICA",
+        "cantidad_disponible": 5,
+        "estado": 1,
+        "valor_estimado": 100000.0
     }
 ]

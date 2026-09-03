@@ -1,0 +1,18 @@
+[
+    {
+        "id": "12345",
+        "nombre": "SANTIAGO ",
+        "apellido": "GOMEZ",
+        "telefono": "3132533516",
+        "direccion": "Pinchote",
+        "tipo_de_usuario": true
+    },
+    {
+        "id": "123",
+        "nombre": "nikol",
+        "apellido": "ortiz",
+        "telefono": "3467",
+        "direccion": "3ewwef",
+        "tipo_de_usuario": false
+    }
+]
