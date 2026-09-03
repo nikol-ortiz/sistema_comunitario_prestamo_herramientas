@@ -1,5 +1,5 @@
-import json
 import os
+from modulos.functions import cargar_json_lista
 
 # Consulta el estado de las herramientas, su disponibilidad futura y quién la posee actualmente.
 def consultar_herramientas():
@@ -15,31 +15,13 @@ def consultar_herramientas():
     print("==================================================")
 
     # Cargar datos de herramientas
-    herramientas = []
-    if os.path.exists(ruta_herramientas):
-        try:
-            with open(ruta_herramientas, "r", encoding="utf-8") as f:
-                herramientas = json.load(f)
-        except:
-            herramientas = []
+    herramientas = cargar_json_lista(ruta_herramientas)
 
     # Cargar datos de préstamos
-    prestamos = []
-    if os.path.exists(ruta_prestamos):
-        try:
-            with open(ruta_prestamos, "r", encoding="utf-8") as f:
-                prestamos = json.load(f)
-        except:
-            prestamos = []
+    prestamos = cargar_json_lista(ruta_prestamos)
 
     # Cargar datos de usuarios
-    usuarios = []
-    if os.path.exists(ruta_usuarios):
-        try:
-            with open(ruta_usuarios, "r", encoding="utf-8") as f:
-                usuarios = json.load(f)
-        except:
-            usuarios = []
+    usuarios = cargar_json_lista(ruta_usuarios)
 
     if not herramientas:
         print("No hay herramientas registradas en el sistema.")

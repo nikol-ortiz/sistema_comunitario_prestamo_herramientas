@@ -1,6 +1,7 @@
 import os, json
 from datetime import datetime
 import uuid
+from modulos.functions import leer_entero, leer_fecha, cargar_json_lista
 
 
 # Rutas de los archivos JSON
@@ -10,24 +11,11 @@ ruta_herramientas = "data/herramientas.json"
 os.makedirs("data", exist_ok=True)
 
 # Cargar datos de préstamos
-if os.path.exists(ruta_prestamos):
-    try:
-        with open(ruta_prestamos, "r", encoding="utf-8") as f:
-            prestamos = json.load(f)
-    except json.decoder.JSONDecodeError:
-        prestamos = []
-else:
-    prestamos = []
+prestamos = cargar_json_lista(ruta_prestamos)
 
 
-def cargar_herramientas():# cargar das de herramientas 
-    if os.path.exists(ruta_herramientas):
-        try:
-            with open(ruta_herramientas, "r", encoding="utf-8") as f:
-                return json.load(f)
-        except json.decoder.JSONDecodeError:
-            return []
-    return []
+def cargar_herramientas():# cargar das de herramientas
+    return cargar_json_lista(ruta_herramientas)
 
 def guardar_herramientas(herramientas):#guardar datos de herramientas
     with open(ruta_herramientas, "w", encoding="utf-8") as f:
@@ -117,12 +105,7 @@ def registrar_prestamo():
         from modulos.herramientas import listar_herramientas
         listar_herramientas()
 
-    try:
-        herramienta_id = int(input("Ingrese el ID de la herramienta: "))
-    except ValueError:
-        print("Error: El ID de la herramienta debe ser un número.")
-        input("Presione Enter para continuar...")
-        return
+    herramienta_id = leer_entero("Ingrese el ID de la herramienta: ")
 
     # Buscar la herramienta para validar stock
     herramienta_encontrada = None
@@ -136,6 +119,12 @@ def registrar_prestamo():
         input("Presione Enter para continuar...")
         return
 
+    # REGLA DE NEGOCIO: solo se prestan herramientas en estado 'Activa/Disponible' (1)
+    if herramienta_encontrada.get("estado") != 1:
+        print(f"Error: La herramienta '{herramienta_encontrada.get('nombre', 'seleccionada')}' no está disponible actualmente. Solo se prestan herramientas en estado 'Activa/Disponible'.")
+        input("Presione Enter para continuar...")
+        return
+
     # REGLA DE NEGOCIO: Verificar si hay stock disponible antes de continuar
     stock_actual = herramienta_encontrada.get("cantidad_disponible", 0)
     if stock_actual <= 0:
@@ -143,12 +132,7 @@ def registrar_prestamo():
         input("Presione Enter para continuar...")
         return
 
-    try:
-        cantidad = int(input(f"Ingrese la cantidad a prestar (Disponible: {stock_actual}): "))
-    except ValueError:
-        print("Error: La cantidad debe ser un número entero.")
-        input("Presione Enter para continuar...")
-        return
+    cantidad = leer_entero(f"Ingrese la cantidad a prestar (Disponible: {stock_actual}): ")
 
     # REGLA DE NEGOCIO 1: Verificar stock disponible
     if cantidad <= 0:
@@ -161,11 +145,11 @@ def registrar_prestamo():
         input("Presione Enter para continuar...")
         return
 
-    fecha_inicio = input("Ingrese fecha de inicio (AAAA-MM-DD) [Enter para fecha actual]: ")
-    if not fecha_inicio.strip():
+    fecha_inicio = leer_fecha("Ingrese fecha de inicio (AAAA-MM-DD) [Enter para fecha actual]: ", permitir_vacio=True)
+    if not fecha_inicio:
         fecha_inicio = datetime.now().strftime("%Y-%m-%d")
 
-    fecha_estimada_devolucion = input("Ingrese fecha estimada de devolución (AAAA-MM-DD): ")
+    fecha_estimada_devolucion = leer_fecha("Ingrese fecha estimada de devolución (AAAA-MM-DD): ")
     observaciones = input("Observaciones adicionales: ")
 
     # REGLA DE NEGOCIO 

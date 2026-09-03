@@ -72,29 +72,41 @@ La junta comunal requiere un **programa de consola en Python** que centralice la
 
 ---
 
-## 📂 Estructura de Archivos Recomendada
+## 📂 Estructura de Archivos
 
 ```text
 sistema_herramientas/
 │
-├── specs.md                  # Este archivo de especificaciones
-├── README.md                 # Guía de uso y ejecución
-├── main.py                   # Punto de entrada del programa
+├── FULL_SPECS.md
+├── SPECS.md
+├── README.md
+├── Notas.md
 │
-├── data/                     # Archivos de persistencia
+├── login.py
+├── main.py
+│
+├── data/
+│   ├── app.log
 │   ├── herramientas.json
 │   ├── usuarios.json
-│   ├── prestamos.json
-│   └── app.log               # Archivo de logs
+│   └── prestamos.json
 │
-├── modules/                  # Lógica del sistema
-│   ├── __init__.py
-│   ├── herramientas.py
+├── modulos/
+│   ├── functions.py
 │   ├── usuarios.py
+│   ├── herramientas.py
 │   ├── prestamos.py
-│   ├── reportes.py
-│   └── logger.py
+│   ├── consultas_reportes.py
+│   ├── eventos.py
+│   └── permisos.py
 │
-└── tests/                    # Casos de prueba
-    ├── test_inputs.txt
-    └── test_outputs.txt
+├── modulos_usuario/
+│   ├── consultar_herramientas.py
+│   ├── historial.py
+│   └── solicitud_prestamo.py
+│
+└── test/
+    ├── prueba1.md
+    ├── prueba2.md
+    ├── prueba3.md
+    └── prueba4.md

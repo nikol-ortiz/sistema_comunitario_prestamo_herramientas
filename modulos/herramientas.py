@@ -1,4 +1,5 @@
 import os, json
+from modulos.functions import leer_entero, leer_flotante, cargar_json_lista
 
 # Ruta del JSON
 ruta = "data/herramientas.json"
@@ -7,14 +8,7 @@ ruta = "data/herramientas.json"
 os.makedirs("data", exist_ok=True)
 
 # Cargar datos existentes o inicializar lista vacía
-if os.path.exists(ruta):
-    try:
-        with open(ruta, "r", encoding="utf-8") as f:
-            herramientas = json.load(f)
-    except json.JSONDecodeError:
-        herramientas = []
-else:
-    herramientas = []
+herramientas = cargar_json_lista(ruta)
 
 # Funcion para limpiar pantalla
 def limpiar_pantalla():
@@ -62,22 +56,22 @@ def mostrar_menu_gestion_herramientas():
 def agregar_herramienta():
     limpiar_pantalla()
     print('--- Agregar herramienta ---')
-    id = int(input("Ingrese el ID de la herramienta: "))
+    id = leer_entero("Ingrese el ID de la herramienta: ")
     nombre = input("Ingrese el nombre de la herramienta: ")
     categoria = input("Ingrese la categoría de la herramienta: ")
-    cantidad_disponible = int(input("Ingrese la cantidad disponible: "))
+    cantidad_disponible = leer_entero("Ingrese la cantidad disponible: ")
 
     print('Ingrese el estado de la herramienta:')
     print('1. Activa')
     print('2. En reparación')
     print('3. Fuera de servicio')
-    estado = int(input("Seleccione una opción: "))
+    estado = leer_entero("Seleccione una opción: ")
     if estado not in [1, 2, 3]:
         print("Opción inválida, por favor intente de nuevo.")
         input("Presione Enter para continuar...")
         return
     
-    valor_estimado = float(input("Ingrese el valor estimado de la herramienta: "))
+    valor_estimado = leer_flotante("Ingrese el valor estimado de la herramienta: ")
 
     # Agrega la herramienta a la lista en memoria
     herramientas.append({
@@ -107,16 +101,30 @@ def listar_herramientas():
             print(f"ID: {herramienta['id']}, Nombre: {herramienta['nombre']}, Categoría: {herramienta['categoria']}, Cantidad disponible: {herramienta['cantidad_disponible']}, Estado: {herramienta['estado']}, Valor estimado: {herramienta['valor_estimado']}")
     input("Presione Enter para continuar...")
 
+# Función para listar solo las herramientas disponibles para préstamo
+# (estado 1 = Activa/Disponible) y que además tengan stock.
+def listar_herramientas_disponibles():
+    limpiar_pantalla()
+    print('--- Herramientas disponibles ---')
+    disponibles = [h for h in herramientas
+                   if h.get('estado') == 1 and h.get('cantidad_disponible', 0) > 0]
+    if not disponibles:
+        print("No hay herramientas disponibles para préstamo.")
+    else:
+        for herramienta in disponibles:
+            print(f"ID: {herramienta['id']}, Nombre: {herramienta['nombre']}, Categoría: {herramienta['categoria']}, Cantidad disponible: {herramienta['cantidad_disponible']}, Estado: Activa/Disponible, Valor estimado: {herramienta['valor_estimado']}")
+    input("Presione Enter para continuar...")
+
 # Función para Eliminar una herramienta
 def eliminar_herramientas():
     limpiar_pantalla()
     print('--- Eliminar herramienta ---')
     opcion_eliminar_herramientas = 0
-    opcion_eliminar_herramientas = int(input('Quieres listar las herramientas?    1> SI   2> No         '))
+    opcion_eliminar_herramientas = leer_entero('Quieres listar las herramientas?    1> SI   2> No         ')
     if opcion_eliminar_herramientas == 1:
         listar_herramientas()
 
-    id_herraminta_eliminar = int(input("Ingrese el ID de la herramienta a eliminar: "))
+    id_herraminta_eliminar = leer_entero("Ingrese el ID de la herramienta a eliminar: ")
     encontrado = False
     for herramienta in herramientas:
         if herramienta['id'] == id_herraminta_eliminar:
@@ -137,11 +145,11 @@ def modificar_herramientas():
     limpiar_pantalla()
     print('--- Modificar herramienta ---')
     opcion_modificar_herramientas = 0
-    opcion_modificar_herramientas = int(input('Quieres listar las herramientas?    1> SI   2> No         '))
+    opcion_modificar_herramientas = leer_entero('Quieres listar las herramientas?    1> SI   2> No         ')
     if opcion_modificar_herramientas == 1:
         listar_herramientas()
 
-    id_herramienta_modificar = int(input("Ingrese el ID de la herramienta a modificar: "))
+    id_herramienta_modificar = leer_entero("Ingrese el ID de la herramienta a modificar: ")
     encontrada = False
     for herramienta in herramientas:
         if herramienta['id'] == id_herramienta_modificar:
@@ -154,7 +162,7 @@ def modificar_herramientas():
             print('3. Cantidad disponible')
             print('4. Estado')
             print('5. Valor estimado')
-            opcion_modificar = int(input("Seleccione una opción: "))
+            opcion_modificar = leer_entero("Seleccione una opción: ")
 
             actualizacion = None
             parametro = None
@@ -172,7 +180,7 @@ def modificar_herramientas():
                 input("Presione Enter para continuar...")
                 
             elif opcion_modificar == 3:
-                cantidad = int(input("Ingrese la nueva cantidad de la herramienta: "))
+                cantidad = leer_entero("Ingrese la nueva cantidad de la herramienta: ")
                 actualizacion = cantidad
                 parametro = 'cantidad_disponible'
                 input("Presione Enter para continuar...")
@@ -182,7 +190,7 @@ def modificar_herramientas():
                 print('1. Activa')
                 print('2. En reparación')
                 print('3. Fuera de servicio') 
-                estado = int(input("Seleccione una opción: "))
+                estado = leer_entero("Seleccione una opción: ")
                 if estado not in [1, 2, 3]:
                     print("Opción inválida, por favor intente de nuevo.")
                     input("Presione Enter para continuar...")
@@ -192,7 +200,7 @@ def modificar_herramientas():
                 input("Presione Enter para continuar...")
                 
             elif opcion_modificar == 5:
-                valor = int(input("Ingrese el nuevo valor de la herramienta: "))
+                valor = leer_flotante("Ingrese el nuevo valor de la herramienta: ")
                 actualizacion = valor
                 parametro = 'valor_estimado'
                 input("Presione Enter para continuar...")
@@ -219,12 +227,7 @@ def modificar_herramientas():
 def buscar_herramienta():
     limpiar_pantalla()
     print('--- Buscar herramienta ---')
-    try:
-        id_herramienta_buscar = int(input("Ingrese el ID de la herramienta a buscar: "))
-    except ValueError:
-        print("El ID debe ser un número entero válido.")
-        input("Presione Enter para continuar...")
-        return
+    id_herramienta_buscar = leer_entero("Ingrese el ID de la herramienta a buscar: ")
 
     encontrado = False
     
@@ -252,10 +255,7 @@ def buscar_herramienta():
 
     if encontrado == False: 
         print(f"\nNinguna herramienta coincide con el ID: {id_herramienta_buscar}")
-        try:
-            continuar = int(input('¿Quieres buscar otro ID? 1: SI | 2: NO: '))
-            if continuar == 1:
-                buscar_herramienta()
-        except ValueError:
-            pass
+        continuar = leer_entero('¿Quieres buscar otro ID? 1: SI | 2: NO: ')
+        if continuar == 1:
+            buscar_herramienta()
     

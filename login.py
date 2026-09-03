@@ -1,16 +1,11 @@
-import json, os, logging
+import os, logging
+from modulos.functions import cargar_json_lista
 
 ruta = "data/usuarios.json"
 os.makedirs("data", exist_ok=True)
 
 def cargar_usuarios():
-    if os.path.exists(ruta):
-        try:
-            with open(ruta, "r", encoding="utf-8") as f:
-                return json.load(f)
-        except json.decoder.JSONDecodeError:
-            return []
-    return []
+    return cargar_json_lista(ruta)
 
 def iniciar_sesion():
     print('--- INICIO DE SESIÓN ---')

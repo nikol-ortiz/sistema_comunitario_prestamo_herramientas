@@ -1,18 +1,13 @@
 
 # Operaciones: crear, listar, buscar, actualizar y eliminar usuarios.
 import os,json
+from modulos.functions import leer_entero, cargar_json_lista
+
 # Esta es la ruta del JSON de las usuarios
 ruta = "data/usuarios.json"
 os.makedirs("data", exist_ok=True)
 
-if os.path.exists("data"):
-    try:
-        with open(ruta, "r", encoding="utf-8") as f:
-            usuarios = json.load(f)
-    except json.decoder.JSONDecodeError:
-        usuarios=[]
-else:
-    usuarios=[]
+usuarios = cargar_json_lista(ruta)
             
 
 
@@ -31,7 +26,7 @@ def mostrar_menu_gestion_usuarios():
         print("4. Consultar usuario")
         print("5. Listar usuarios")
         print("6. Volver al menu principal")
-        opcion_gestion_usuarios = int(input("Seleccione una opción: "))
+        opcion_gestion_usuarios = leer_entero("Seleccione una opción: ")
 
         if opcion_gestion_usuarios == 1:
             print('Agregar usuario')
@@ -65,7 +60,7 @@ def crear_usuario():
     apellido = input("Ingrese el apellido del usuario: ")
     telefono = input("Ingrese el telefono del usuario: ")
     direccion = input("Ingrese la direccion del usuario: ")
-    administrador = int(input("Ingrese si el usuario es administrador (1: USUARIO       2: ADMINISTRADOR): "))
+    administrador = leer_entero("Ingrese si el usuario es administrador (1: USUARIO       2: ADMINISTRADOR): ")
     if administrador == 2:
         administrador = True
     else:
@@ -96,7 +91,7 @@ def eliminar_usuario():
     print("-----------------------------")
     print("----Eliminar usuario------")
     print("-----------------------------")
-    quiere_listar = int(input("¿Quiere listar los usuarios (1: Si, 2: No)? "))
+    quiere_listar = leer_entero("¿Quiere listar los usuarios (1: Si, 2: No)? ")
     if quiere_listar == 1:
         listar_usuarios()
         
@@ -126,7 +121,7 @@ def modificar_usuario():
     print("-----------------------------")
     print("----Modificar usuario------")
     print("-----------------------------")
-    quiere_listar = int(input("¿Quiere listar los usuarios (1: Si, 2: No)? "))
+    quiere_listar = leer_entero("¿Quiere listar los usuarios (1: Si, 2: No)? ")
     if quiere_listar == 1:
         listar_usuarios()
     usuario_id = input("Ingrese la identidad del usuario a modificar: ")
@@ -137,7 +132,7 @@ def modificar_usuario():
             print('Datos del usuario:')
             print(f'Id: {usuario["id"]} \n Nombre: {usuario["nombre"]} \n Apellido: {usuario["apellido"]} \n Telefono: {usuario["telefono"]} \n Direccion: {usuario["direccion"]} \n Tipo de usuario: {"Administrador" if usuario["tipo_de_usuario"] else "Usuario"}')
             print('Qué quieres modificar?')
-            opcion = int(input("1. Nombre \n2. Apellido \n3. Telefono \n4. Direccion \n5. Tipo de usuario \nIngrese tu elección: "))
+            opcion = leer_entero("1. Nombre \n2. Apellido \n3. Telefono \n4. Direccion \n5. Tipo de usuario \nIngrese tu elección: ")
             if opcion == 1:
                 nombre = input("Ingrese el nuevo nombre del usuario: ")
                 usuario["nombre"] = nombre
@@ -151,7 +146,7 @@ def modificar_usuario():
                 direccion = input("Ingrese la nueva direccion del usuario: ")
                 usuario["direccion"] = direccion
             elif opcion == 5:
-                administrador = int(input("Ingrese si el usuario es administrador (1: USUARIO       2: ADMINISTRADOR): "))
+                administrador = leer_entero("Ingrese si el usuario es administrador (1: USUARIO       2: ADMINISTRADOR): ")
                 if administrador == 2:
                     administrador = True
                 else:

@@ -22,5 +22,21 @@
         "cantidad_disponible": 5,
         "estado": 1,
         "valor_estimado": 100000.0
+    },
+    {
+        "id": 0,
+        "nombre": "FLEXOMETRO",
+        "categoria": "MANUAL",
+        "cantidad_disponible": 2,
+        "estado": 3,
+        "valor_estimado": 25000.0
+    },
+    {
+        "id": 4,
+        "nombre": "GG",
+        "categoria": "G",
+        "cantidad_disponible": 5,
+        "estado": 1,
+        "valor_estimado": 24.0
     }
 ]

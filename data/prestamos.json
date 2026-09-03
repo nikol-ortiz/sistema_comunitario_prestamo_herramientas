@@ -40,5 +40,15 @@
         "fecha_estimada_devolucion": "2026-09-05",
         "estado": "rechazado",
         "observaciones": "RECHAZADO: no me gusto | NA"
+    },
+    {
+        "id_prestamo": "b0e1d85f",
+        "usuario_id": "d2447",
+        "herramienta_id": 0,
+        "cantidad": 3,
+        "fecha_inicio": "2025-12-26",
+        "fecha_estimada_devolucion": "2026-12-26",
+        "estado": "aprobado",
+        "observaciones": "jeje"
     }
 ]
